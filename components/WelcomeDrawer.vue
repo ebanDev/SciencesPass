@@ -1,6 +1,6 @@
 <template>
   <Drawer :open="store.isFirstVisit" modal>
-    <DrawerContent class="h-[95vh]">
+    <DrawerContent class="h-[85vh]">
       <DrawerHeader>
         <DrawerTitle>Bienvenue sur SciencesPass</DrawerTitle>
         <DrawerDescription>

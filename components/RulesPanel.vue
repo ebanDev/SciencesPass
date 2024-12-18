@@ -17,7 +17,7 @@
         Règles
       </Button>
     </DrawerTrigger>
-    <DrawerContent class="h-[95vh]">
+    <DrawerContent class="h-[85vh]">
       <DrawerHeader>
         <DrawerTitle>Règles de Validation</DrawerTitle>
       </DrawerHeader>

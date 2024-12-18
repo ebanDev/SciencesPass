@@ -1,8 +1,30 @@
-# Nuxt Minimal Starter
+# SciencesPass
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+SciencesPass est une application web permettant de simuler et calculer ses moyennes selon des règles de validation complexes. Elle est particulièrement adaptée pour les établissements d'enseignement supérieur ayant des systèmes de notation spécifiques.
 
-## Setup
+## Fonctionnalités
+
+- Gestion des UE (Unités d'Enseignement) et des matières
+- Système de coefficients personnalisables
+- Règles de validation configurables :
+  - Moyenne minimale globale
+  - Nombre minimum d'UE validées
+  - Nombre maximum d'échecs autorisés
+- Template pré-configuré pour Sciences Po Bordeaux
+- Interface responsive (desktop & mobile)
+- Persistance des données dans le navigateur
+
+## Technologies
+
+- Vue 3 + Nuxt 3
+- TypeScript
+- Pinia pour la gestion d'état
+- TailwindCSS pour le style
+- ShadcnUI pour les composants
+
+## Développement
+
+### Installation
 
 Make sure to install dependencies:
 
@@ -20,7 +42,7 @@ yarn install
 bun install
 ```
 
-## Development Server
+### Serveur de développement
 
 Start the development server on `http://localhost:3000`:
 
@@ -38,7 +60,7 @@ yarn dev
 bun run dev
 ```
 
-## Production
+### Production
 
 Build the application for production:
 
@@ -56,20 +78,6 @@ yarn build
 bun run build
 ```
 
-Locally preview production build:
+### LICENSE
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+AGPL-3.0 License

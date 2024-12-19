@@ -44,8 +44,26 @@
                   <span className="sr-only">Toggle</span>
                 </Button>
               </CollapsibleTrigger>
-              <Button variant="destructive" size="icon" @click="removeGroup(group.id)">
-                <Trash2 class="h-4 w-4" />
+              <Button variant="destructive" size="icon">
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" size="icon">
+                      <Trash2 class="h-4 w-4" />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Supprimer le groupe</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Êtes-vous sûr de vouloir supprimer ce groupe ? Cette action est irréversible.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Annuler</AlertDialogCancel>
+                      <AlertDialogAction @click="removeGroup(group.id)">Supprimer</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </Button>
             </div>
           </div>
@@ -79,8 +97,26 @@
                         <span className="sr-only">Toggle</span>
                       </Button>
                     </CollapsibleTrigger>
-                    <Button variant="destructive" size="icon" @click="removeTeachingUnit(group.id, unit.id)">
-                      <Trash2 class="h-4 w-4" />
+                    <Button variant="destructive" size="icon">
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="destructive" size="icon">
+                            <Trash2 class="h-4 w-4" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Supprimer l'UE</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Êtes-vous sûr de vouloir supprimer cette unité d'enseignement ? Cette action est irréversible.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Annuler</AlertDialogCancel>
+                            <AlertDialogAction @click="removeTeachingUnit(group.id, unit.id)">Supprimer</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </Button>
                   </div>
                 </div>
@@ -97,15 +133,33 @@
                           <Input v-model="subject.name" placeholder="Nom de la matière" />
                         </div>
                         <div class="flex items-end">
-                          <Button variant="destructive" size="icon" @click="removeSubject(group.id, unit.id, subject.id)">
-                            <Trash2 class="h-4 w-4" />
+                          <Button variant="destructive" size="icon">
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="destructive" size="icon">
+                                  <Trash2 class="h-4 w-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Supprimer la matière</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Êtes-vous sûr de vouloir supprimer cette matière ? Cette action est irréversible.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                  <AlertDialogAction @click="removeSubject(group.id, unit.id, subject.id)">Supprimer</AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
                           </Button>
                         </div>
                       </div>
                       <div class="flex gap-2">
                         <div class="flex-1">
                           <Label class="text-sm">Note</Label>
-                          <Input v-model.number="subject.value" type="number" min="0" max="20" step="0.1" />
+                          <Input v-model="subject.value" @input="onSubjectValueInput(subject)" type="number" min="0" max="20" step="0.1" />
                         </div>
                         <div class="flex-1">
                           <Label class="text-sm">Coef.</Label>
@@ -307,5 +361,16 @@ function removeGroup(id: string) {
 
 function addStandaloneSubject(groupId: string) {
   store.addStandaloneSubject(groupId)
+}
+
+function onSubjectValueInput(subject: Subject) {
+  if (subject.value === '') {
+    subject.value = null
+  } else {
+    subject.value = parseFloat(subject.value)
+    if (isNaN(subject.value)) {
+      subject.value = null
+    }
+  }
 }
 </script>

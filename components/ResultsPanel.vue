@@ -24,7 +24,12 @@
       <div class="flex-1 overflow-auto">
         <ResultsContent />
       </div>
-      <DrawerFooter>
+      <DrawerFooter class="space-y-2">
+        <!-- Add simulation switch here -->
+        <div class="flex items-center justify-between px-1">
+          <Label class="text-sm">Simuler les notes vides avec un 10</Label>
+          <Switch :checked="simulateEmptyGrades" @update:checked="simulateEmptyGrades = $event" />
+        </div>
         <DrawerClose asChild>
           <Button variant="outline">Fermer</Button>
         </DrawerClose>
@@ -35,4 +40,20 @@
 
 <script setup lang="ts">
 import { ChartBar, Settings } from 'lucide-vue-next'
+
+const store = useValidationStore();
+
+const simulateEmptyGrades = ref(false)
+
+// Watch for simulation changes
+watch(simulateEmptyGrades, (newValue) => {
+  if (newValue) {
+    store.calculateWithSimulation()
+  } else {
+    store.calculate()
+  }
+})
+
+// Provide the simulation value to child components
+provide('simulateEmptyGrades', simulateEmptyGrades)
 </script>

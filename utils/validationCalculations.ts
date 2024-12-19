@@ -34,10 +34,11 @@ function calculateGroupAverage(context: CalculationContext, groupId: string): nu
   const group = context.grades.find(g => g.id === groupId)
   if (!group?.teachingUnits) return null
 
-  const regularUnits = group.teachingUnits.filter(u => !u.id.endsWith('-standalone'))
-  if (regularUnits.length === 0) return null
+  // Include all units (both regular and standalone) for average calculation
+  const allUnits = group.teachingUnits
+  if (allUnits.length === 0) return null
 
-  const averages = regularUnits.map(u => calculateUnitAverage(u.subjects, !!context.simulateWithTen))
+  const averages = allUnits.map(u => calculateUnitAverage(u.subjects, !!context.simulateWithTen))
   if (context.simulateWithTen) {
     const simulationAverages = averages.map(a => (a === null ? 10 : a as number))
     return simulationAverages.reduce((sum, a) => sum + a, 0) / simulationAverages.length
@@ -112,6 +113,7 @@ export function performCalculation(grades: GradeEntry[], rules: Rule[], simulate
           break
         }
         case 'Minimum Validated': {
+          // Only consider regular units (non-standalone) for minimum validated rule
           const regularUnits = units.filter(u => !u.id.endsWith('-standalone'))
           let validCount = 0
           let pending = false
@@ -138,8 +140,9 @@ export function performCalculation(grades: GradeEntry[], rules: Rule[], simulate
           break
         }
         case 'Maximum Failures': {
-          const nonStandalone = units.filter(u => !u.id.endsWith('-standalone'))
-          const failCount = nonStandalone.filter(u => {
+          // Consider all units (including standalone) for maximum failures rule
+          const allUnits = units
+          const failCount = allUnits.filter(u => {
             const avg = calculateUnitAverage(u.subjects, simulateWithTen)
             return avg !== null && avg < 10
           }).length

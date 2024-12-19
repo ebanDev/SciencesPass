@@ -3,6 +3,11 @@
   <div class="hidden lg:flex flex-col w-1/3 h-full bg-gray-50">
     <div class="p-6 flex-shrink-0">
       <h2 class="text-xl font-bold">Résultats</h2>
+      <!-- Add simulation switch for desktop -->
+      <div class="flex items-center justify-between mt-4">
+        <Label class="text-sm">Simuler les notes vides avec un 10</Label>
+        <Switch :checked="simulateEmptyGrades" @update:checked="simulateEmptyGrades = $event" />
+      </div>
     </div>
     <div class="flex-1 overflow-y-auto">
       <ResultsContent />
@@ -25,7 +30,7 @@
         <ResultsContent />
       </div>
       <DrawerFooter class="space-y-2">
-        <!-- Add simulation switch here -->
+        <!-- Keep simulation switch here for mobile -->
         <div class="flex items-center justify-between px-1">
           <Label class="text-sm">Simuler les notes vides avec un 10</Label>
           <Switch :checked="simulateEmptyGrades" @update:checked="simulateEmptyGrades = $event" />

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-full">
     <div class="flex-1 overflow-y-auto">
-      <div class="space-y-6 p-5 sm:p-6 pb-28 sm:pb-6">
+      <div class="space-y-6 p-5 sm:p-6 pb-36 sm:pb-8">
         <h2 class="text-xl font-bold mb-4" :class="titlePadding">Notes</h2>
 
         <!-- Standalone Grades -->

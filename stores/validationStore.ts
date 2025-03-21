@@ -112,6 +112,18 @@ export const useValidationStore = defineStore('validation', () => {
   function setFirstVisitComplete() {
     isFirstVisit.value = false
   }
+  
+  function setFirstVisitState(state: boolean) {
+    isFirstVisit.value = state
+  }
+
+  function clearAllData() {
+    grades.value = []
+    rules.value = []
+    result.value = null
+    ruleStatuses.value = {}
+    // We don't reset isFirstVisit since we'll manage that separately
+  }
 
   function loadSciencesPoTemplate() {
     grades.value = SCIENCES_PO_TEMPLATE.grades;
@@ -180,6 +192,8 @@ export const useValidationStore = defineStore('validation', () => {
     addStandaloneSubject,
     togglePanel,
     setFirstVisitComplete,
+    setFirstVisitState,
+    clearAllData,
     loadSciencesPoTemplate,
     calculateWithSimulation,
     getUnitAverage,

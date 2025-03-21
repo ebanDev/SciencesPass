@@ -189,6 +189,25 @@
           <Button @click="addGroup" class="w-full">
             <FolderPlus /> Ajouter un Groupe
           </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="outline" class="w-full">
+                <RefreshCw /> Réinitialiser
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Réinitialiser les données</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Êtes-vous sûr de vouloir réinitialiser toutes vos données ? Cette action est irréversible.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                <AlertDialogAction @click="resetData">Réinitialiser</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
 
       </div>
@@ -197,7 +216,7 @@
 </template>
 
 <script setup lang="ts">
-import { Trash2, Plus, ChevronsUpDown, SquarePen, FolderPlus, FileText } from 'lucide-vue-next'
+import { Trash2, Plus, ChevronsUpDown, SquarePen, FolderPlus, FileText, RefreshCw } from 'lucide-vue-next'
 import { useSidebar } from '@/components/ui/sidebar/utils'
 
 const store = useValidationStore()
@@ -372,5 +391,13 @@ function onSubjectValueInput(subject: Subject) {
       subject.value = null
     }
   }
+}
+
+function resetData() {
+  // Clear current data
+  store.clearAllData()
+  
+  // Show the welcome drawer again to let user choose between template or blank start
+  store.setFirstVisitState(true)
 }
 </script>
